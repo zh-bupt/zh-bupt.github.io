@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>New post</title>
+    <url>/2020/06/06/New-post/</url>
+    <content><![CDATA[<h2 id="this-is-title">this is title</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello, world!\n"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是公式: <span class="math display">\[
+f(x)=3x^2+2x+2
+\]</span></p>
+]]></content>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Test math</title>
     <url>/2020/06/06/Test-math/</url>
     <content><![CDATA[<h3 id="测试能不能支持-letex-语法">测试能不能支持 LeTex 语法</h3>
@@ -30,18 +43,5 @@ f(x)=3x^2+2x+1
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>New post</title>
-    <url>/2020/06/06/New-post/</url>
-    <content><![CDATA[<h2 id="this-is-title">this is title</h2>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello, world!\n"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这是公式: <span class="math display">\[
-f(x)=3x^2+2x+2
-\]</span></p>
-]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
   </entry>
 </search>
