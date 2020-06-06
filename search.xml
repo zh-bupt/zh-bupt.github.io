@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Test math</title>
+    <url>/2020/06/06/Test-math/</url>
+    <content><![CDATA[<h3 id="测试能不能支持-letex-语法">测试能不能支持 LeTex 语法</h3>
+<p><span class="math display">\[
+f(x)=3x^2+2x+1
+\]</span></p>
+]]></content>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>New post</title>
     <url>/2020/06/06/New-post/</url>
     <content><![CDATA[<h2 id="this-is-title">this is title</h2>
@@ -12,18 +24,6 @@
 &#125;</code></pre>
 <p>这是公式: <span class="math display">\[
 f(x)=3x^2+2x+2
-\]</span></p>
-]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Test math</title>
-    <url>/2020/06/06/Test-math/</url>
-    <content><![CDATA[<h3 id="测试能不能支持-letex-语法">测试能不能支持 LeTex 语法</h3>
-<p><span class="math display">\[
-f(x)=3x^2+2x+1
 \]</span></p>
 ]]></content>
       <tags>
