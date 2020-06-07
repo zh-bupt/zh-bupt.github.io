@@ -273,27 +273,22 @@ f(x)=3x^2+2x+2
               <div class="comments" id="comments">
                 
                 
-  <div id="gitalk-container"></div>
   <script type="text/javascript">
-    function loadGitalk(){
-      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
-        var gitalk = new Gitalk({
-          clientID: 'f4484e376c5e4f281559',
-          clientSecret: '8b328b405fa6cbb3569013d8f113a8846e5763ca',
-          repo: 'zh-bupt.github.io',
-          owner: 'zh-bupt',
-          admin: 'zh-bupt',
-          id: 'abe2f11339bee105f3f102052ebaa0c7',
-          language: 'zh-CN',
-          perPage: 15,
-          pagerDirection: 'last',
-          createIssueManually: 'false',
-          distractionFreeMode: 'false'
-        });
-        gitalk.render('gitalk-container');
-      });
+    function loadUtterances() {
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.defer = false
+      s.setAttribute('repo', 'zh-bupt/zh-bupt.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', 'github-light');
+      s.setAttribute('crossorigin', 'anonymous');
+      var e = document.getElementsByTagName('script')[0];
+      e.parentNode.insertBefore(s, e);
     }
-    createObserver(loadGitalk, 'gitalk-container');
+    createObserver(loadUtterances, 'comments')
   </script>
 
 

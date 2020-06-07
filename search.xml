@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>New post</title>
+    <url>/2020/06/06/New-post/</url>
+    <content><![CDATA[<h2 id="this-is-title">this is title</h2>
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Hello, world!\n"</span>;
+&#125;</code></pre>
+<p>这是公式: <span class="math display">\[
+f(x)=3x^2+2x+2
+\]</span></p>
+]]></content>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Test math</title>
+    <url>/2020/06/06/Test-math/</url>
+    <content><![CDATA[<h3 id="测试能不能支持-letex-语法">测试能不能支持 LeTex 语法</h3>
+<p><span class="math display">\[
+f(x)=3x^2+2x+1
+\]</span></p>
+]]></content>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2020/06/06/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -18,35 +48,5 @@
 <pre><code class="hljs bash">$ hexo deploy</code></pre>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Test math</title>
-    <url>/2020/06/06/Test-math/</url>
-    <content><![CDATA[<h3 id="测试能不能支持-letex-语法">测试能不能支持 LeTex 语法</h3>
-<p><span class="math display">\[
-f(x)=3x^2+2x+1
-\]</span></p>
-]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>New post</title>
-    <url>/2020/06/06/New-post/</url>
-    <content><![CDATA[<h2 id="this-is-title">this is title</h2>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Hello, world!\n"</span>;
-&#125;</code></pre>
-<p>这是公式: <span class="math display">\[
-f(x)=3x^2+2x+2
-\]</span></p>
-]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
   </entry>
 </search>
