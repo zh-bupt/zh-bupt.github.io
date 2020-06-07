@@ -1,52 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/06/06/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<pre><code class="hljs bash">$ hexo new <span class="hljs-string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<pre><code class="hljs bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<pre><code class="hljs bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<pre><code class="hljs bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+    <title>LeetCode #10: Regular Expression Matching</title>
+    <url>/2020/06/06/10-Regular-Expression-Matching/</url>
+    <content><![CDATA[<h3 id="leetcode-10-regular-expression-matching-正则表达式匹配"><a href="https://leetcode.com/problems/regular-expression-matching/" target="_blank" rel="noopener">LeetCode #10: Regular Expression Matching (正则表达式匹配)</a></h3>
+<h4 id="题目描述">题目描述:</h4>
+<blockquote>
+<p>给你一个字符串 s 和一个字符规律 p, 请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。</p>
+<blockquote>
+<p>'.' 匹配任意单个字符 '*' 匹配零个或多个前面的那一个元素</p>
+</blockquote>
+<p>所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。 说明: &gt; s 可能为空，且只包含从 a-z 的小写字母。 &gt; p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。</p>
+<p>示例 1: &gt; 输入: &gt; s = &quot;aa&quot; &gt; p = &quot;a&quot; &gt; 输出: false &gt; 解释: &quot;a&quot; 无法匹配 &quot;aa&quot; 整个字符串。</p>
+<p>示例 2: &gt; 输入: &gt; s = &quot;aa&quot; &gt; p = &quot;a*&quot; &gt; 输出: true &gt; 解释: 因为 '*' 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 'a'。因此，字符串 &quot;aa&quot; 可被视为 'a' 重复了一次。</p>
+<p>示例 3: &gt; 输入: &gt; s = &quot;ab&quot; &gt; p = &quot;.*&quot; &gt; 输出: true &gt; 解释: &quot;.<em>&quot; 表示可匹配零个或多个（'</em>'）任意字符（'.'）。</p>
+<p>示例 4: &gt; 输入: &gt; s = &quot;aab&quot; &gt; p = &quot;c*a*b&quot; &gt; 输出: true &gt;解释: 因为 '*' 表示零个或多个，这里 'c' 为 0 个, 'a' 被重复一次。因此可以匹配字符串 &quot;aab&quot;。</p>
+<p>示例 5: &gt; 输入: &gt; s = &quot;mississippi&quot; &gt; p = &quot;mis*is*p*.&quot; &gt; 输出: false</p>
+</blockquote>
+<h4 id="解法一回溯法">解法一(回溯法):</h4>
+<blockquote>
+<p>从左向右检查匹配串能否匹配模式串, 由于模式串里面有 '*', 当下一个字符是 '*' 时我们可以匹配 0 个或者多个当前字符, 当匹配 0 个的时候模式串直接跳到 '*' 后即可, 匹配串不变; 匹配多个时匹配串跳到下一个字符, 模式串仍在当前位置. 代码如下:</p>
+</blockquote>
+<p><strong>C++代码</strong> <pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (p.length() == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> s.length() == <span class="hljs-number">0</span>;
+        <span class="hljs-comment">// 先判断当前字符是否匹配</span>
+        <span class="hljs-keyword">bool</span> first_match = s.length() &gt; <span class="hljs-number">0</span> 
+            &amp;&amp; (s[<span class="hljs-number">0</span>] == p[<span class="hljs-number">0</span>] || p[<span class="hljs-number">0</span>] == <span class="hljs-string">'.'</span>);
+        <span class="hljs-comment">// 判断模式串下一个字符是否是 ’*‘</span>
+        <span class="hljs-keyword">if</span> (p.length() &gt; <span class="hljs-number">1</span> &amp;&amp; p[<span class="hljs-number">1</span>] == <span class="hljs-string">'*'</span>) &#123;
+            <span class="hljs-comment">// 如果是则考虑匹配零个和多个</span>
+            <span class="hljs-keyword">return</span> (first_match &amp;&amp; isMatch(s.substr(<span class="hljs-number">1</span>), p))
+                || isMatch(s, p.substr(<span class="hljs-number">2</span>));
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">// 如果不是则匹配当前的字符</span>
+            <span class="hljs-keyword">return</span> first_match &amp;&amp; isMatch(s.substr(<span class="hljs-number">1</span>), p.substr(<span class="hljs-number">1</span>));
+        &#125;
+    &#125;
+&#125;;</code></pre></p>
+<h4 id="解法二动态规划">解法二(动态规划)</h4>
+<blockquote>
+<p>从上面的解法可以看出这个问题具有最优子结构的性质, 如果我们用一个二维数组 <code>dp</code> 表示子串的匹配结果, 即 <code>dp[i][j]</code> 表示匹配串 <code>s[i:]</code> 和模式串 <code>p[j:]</code> 是否匹配, 最终结果即 <code>dp[0][0]</code>. 当模式串下一个字符不是 '*' 时, 我们有: <pre><code class="hljs dp[i][j]">
+当模式串下一个字符是 &#39;\*&#39; 时, 我们有:
+&#96;&#96;&#96;dp[i][j] &#x3D; dp[i][j + 2] || (match(s[i], p[j]) &amp;&amp; dp[i + 1][j]) </code></pre> 代码如下:</p>
+</blockquote>
+<p><strong>C++代码</strong> <pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p)</span> </span>&#123;
+        <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; <span class="hljs-title">dp</span><span class="hljs-params">(s.length() + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(p.length() + <span class="hljs-number">1</span>))</span></span>;
+        dp[s.length()][p.length()] = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = s.length(); i &gt;= <span class="hljs-number">0</span>; --i) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = p.length() - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; --j) &#123;
+                <span class="hljs-keyword">bool</span> first_match = (i &lt; s.length() &amp;&amp; (s[i] == p[j] || p[j] == <span class="hljs-string">'.'</span>));
+                <span class="hljs-keyword">if</span> (j + <span class="hljs-number">1</span> &lt; p.length() &amp;&amp; p[j + <span class="hljs-number">1</span>] == <span class="hljs-string">'*'</span>) &#123;
+                    dp[i][j] = dp[i][j + <span class="hljs-number">2</span>]
+                        || (first_match &amp;&amp; dp[i + <span class="hljs-number">1</span>][j]);
+                &#125; <span class="hljs-keyword">else</span> &#123;
+                    dp[i][j] = first_match &amp;&amp; dp[i + <span class="hljs-number">1</span>][j + <span class="hljs-number">1</span>];
+                &#125;
+           &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];
+    &#125;
+&#125;;</code></pre> 另一种写法: <pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">enum</span> flag &#123;UNSET, TRUE, FALSE&#125;;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;flag&gt;&gt; memo;
+    
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p)</span> </span>&#123;
+        memo = <span class="hljs-built_in">vector</span>(s.length() + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;flag&gt;(p.length() + <span class="hljs-number">1</span>, flag::UNSET));
+        <span class="hljs-keyword">return</span> dp(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, s, p);
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j, <span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (memo[i][j] != flag::UNSET) &#123;
+            <span class="hljs-keyword">return</span> memo[i][j] == flag::TRUE;
+        &#125;
+        <span class="hljs-keyword">bool</span> result;
+        <span class="hljs-keyword">if</span> (j == p.length()) &#123;
+            result = i == s.length();
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">bool</span> first_match = (i &lt; s.length() &amp;&amp; (s[i] == p[j] || p[j] == <span class="hljs-string">'.'</span>));
+            <span class="hljs-keyword">if</span> (j + <span class="hljs-number">1</span> &lt; p.length() &amp;&amp; p[j + <span class="hljs-number">1</span>] == <span class="hljs-string">'*'</span>) &#123;
+                result = dp(i, j + <span class="hljs-number">2</span>, s, p)
+                    || (first_match &amp;&amp; dp(i + <span class="hljs-number">1</span>, j, s, p));
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                result = first_match &amp;&amp; dp(i + <span class="hljs-number">1</span>, j + <span class="hljs-number">1</span>, s, p);
+            &#125; 
+        &#125;
+        memo[i][j] = result ? flag::TRUE : flag::FALSE;
+        <span class="hljs-keyword">return</span> result;
+    &#125;
+&#125;;</code></pre></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Test math</title>
-    <url>/2020/06/06/Test-math/</url>
-    <content><![CDATA[<h3 id="测试能不能支持-letex-语法">测试能不能支持 LeTex 语法</h3>
-<p><span class="math display">\[
-f(x)=3x^2+2x+1
-\]</span></p>
-]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
       <tags>
-        <tag>test</tag>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
-    <title>New post</title>
-    <url>/2020/06/06/New-post/</url>
-    <content><![CDATA[<h2 id="this-is-title">this is title</h2>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+    <title>LeetCode #42: Trapping Rain Water</title>
+    <url>/2020/06/06/42-Trapping-Rain-Water/</url>
+    <content><![CDATA[<h3 id="leetcode-42-trapping-rain-water"><a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="noopener">LeetCode #42: Trapping Rain Water</a></h3>
+<h4 id="题目描述">题目描述:</h4>
+<blockquote>
+<p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。 <img src="https://i.loli.net/2020/05/12/fmTMv9sN43Ww1kj.png" srcset="/img/loading.gif" alt="image" /> 上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 示例: 输入: [0,1,0,2,1,0,1,3,2,1,2,1] 输出: 6 #### 解法一: 可以观察到要形成一个水洼需要两边的方块比中间的高，而且一个形状不规则的水洼可以被分解成几个形状规则的水洼，如图： <img src="https://i.loli.net/2020/05/12/ouX3vC1zsipYPjT.jpg" srcset="/img/loading.gif" alt="不规则的水洼的分解" /> 因此我们在遍历数组时维护一个栈。如果当前的条形块小于或等于栈顶的条形块，我们将条形块的索引和高度入栈，这样栈里面存放的就是一些下标递增但是高度非递增的块。如果我们发现一个条形块长于栈顶，我们可以确定栈顶的条形块被当前条形块和栈的前一个条形块形成一个水洼（如果站定几个条形块高度一样则可认为形成了一个高度为零的水洼），而且我们可以根据高度和宽度算出水洼的面积。这样只需要一次遍历就可以计算出结果，代码如下:</p>
+</blockquote>
+<p><strong>C++代码:</strong> <pre><code class="hljs c++"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> &#123;</span>
+    <span class="hljs-keyword">int</span> h, x;
+    node(<span class="hljs-keyword">int</span> hh, <span class="hljs-keyword">int</span> xx):h(hh),x(xx) &#123;&#125;
+&#125; node;
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Hello, world!\n"</span>;
-&#125;</code></pre>
-<p>这是公式: <span class="math display">\[
-f(x)=3x^2+2x+2
-\]</span></p>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; <span class="hljs-built_in">height</span>)</span> </span>&#123;
+        <span class="hljs-built_in">stack</span>&lt;node&gt; s;
+        <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">height</span>.<span class="hljs-built_in">size</span>(); ++i) &#123;
+            <span class="hljs-keyword">while</span>(!s.empty() &amp;&amp; s.top().h &lt; <span class="hljs-built_in">height</span>[i]) &#123;
+                <span class="hljs-comment">// 记录底部的高度, 因为有可能是一个不规则的水洼</span>
+                <span class="hljs-keyword">int</span> t = s.top().h;
+                <span class="hljs-comment">// 将底部从堆栈中弹出</span>
+                s.pop();
+                <span class="hljs-comment">// 保证水洼的左边有方块</span>
+                <span class="hljs-keyword">if</span> (!s.empty())&#123;
+                     <span class="hljs-comment">// 水洼面积等于宽度乘上两边方块高度的最小值(减去底部高度)</span>
+                    result += (i - s.top().x - <span class="hljs-number">1</span>) * (<span class="hljs-built_in">min</span>(<span class="hljs-built_in">height</span>[i], s.top().h) - t);
+                &#125;
+            &#125;
+            s.push(node(<span class="hljs-built_in">height</span>[i], i));
+        &#125;
+        <span class="hljs-keyword">return</span> result;
+    &#125;
+&#125;;</code></pre></p>
 ]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
       <tags>
-        <tag>test</tag>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode #33: Search in Rotated Sorted Array</title>
+    <url>/2020/06/06/33-Search-in-Rotated-Sorted-Array/</url>
+    <content><![CDATA[<h3 id="leetcode-33-search-in-rotated-sorted-array"><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/" target="_blank" rel="noopener">LeetCode #33: Search in Rotated Sorted Array</a></h3>
+<h4 id="题目描述">题目描述:</h4>
+<blockquote>
+<p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。 (例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2])。 搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。 你可以假设数组中不存在重复的元素。 你的算法时间复杂度必须是 O(log n) 级别。 #### 解法一: 根据题目的要求可以知道需要使用二分搜索的方式才能满足 O(log n) 的算法复杂度，但是这样的数组并不能直接使用二分查找。一次我们需要找到数组中最小元素的位置。</p>
+<p>查找最小元素的位置需要使用类似二分查找的方式: <img src="https://i.loli.net/2020/03/12/9jBqVI1XQHE25sv.jpg" srcset="/img/loading.gif" /> 可以看到数组旋转之后会变成上图的样子。二分查找最小元素位置示意如下: <img src="https://i.loli.net/2020/03/12/2ncAuE5Zt1Yqvsd.jpg" srcset="/img/loading.gif" /></p>
+<p>找到最小元素的位置后我们就可以分别对左右两边分别进行二分查找了，完整的代码如下:</p>
+</blockquote>
+<p><strong>C++代码:</strong> <pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find_pivot</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>, mid;
+        <span class="hljs-keyword">if</span> (nums[left] &lt; nums[right]) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span> (left &lt;= right) &#123;
+            mid = (left + right) / <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">if</span> (nums[mid] &gt; nums[mid + <span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span> mid + <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">if</span> (nums[mid] &lt; nums[left]) &#123;
+                right = mid - <span class="hljs-number">1</span>;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                left = mid + <span class="hljs-number">1</span>;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">binary_search</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; nums, <span class="hljs-keyword">int</span> target, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span> </span>&#123;
+        <span class="hljs-keyword">while</span>(l &lt;= r) &#123;
+            <span class="hljs-keyword">int</span> mid = (l + r) / <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">if</span> (nums[mid] == target) <span class="hljs-keyword">return</span> mid;
+            <span class="hljs-keyword">if</span> (target &lt; nums[mid]) &#123;
+                r = mid - <span class="hljs-number">1</span>;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                l = mid + <span class="hljs-number">1</span>;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (nums.<span class="hljs-built_in">size</span>() == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+        <span class="hljs-keyword">if</span> (nums.<span class="hljs-built_in">size</span>() == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> nums[<span class="hljs-number">0</span>] == target ? <span class="hljs-number">0</span> : <span class="hljs-number">-1</span>;
+        <span class="hljs-keyword">int</span> pivot = find_pivot(nums);
+        <span class="hljs-keyword">if</span> (pivot == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> binary_search(nums, target, <span class="hljs-number">0</span>, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">if</span> (target &lt; nums[<span class="hljs-number">0</span>]) <span class="hljs-keyword">return</span> binary_search(nums, target, pivot, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">return</span> binary_search(nums, target, <span class="hljs-number">0</span>, pivot - <span class="hljs-number">1</span>);
+    &#125;
+&#125;;</code></pre></p>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode #93: Restore IP Addresses</title>
+    <url>/2020/06/06/93-Restore-IP-Addresses/</url>
+    <content><![CDATA[<h3 id="leetcode-93-restore-ip-addresses-复原ip地址"><a href="https://leetcode.com/problems/restore-ip-addresses/" target="_blank" rel="noopener">LeetCode #93: Restore IP Addresses (复原IP地址)</a></h3>
+<h4 id="题目描述">题目描述:</h4>
+<blockquote>
+<p>给定一个只包含数字的字符串, 复原它并返回所有可能的 IP 地址格式. 示例: 输入: &quot;25525511135&quot; 输出: [&quot;255.255.11.135&quot;, &quot;255.255.111.35&quot;]</p>
+</blockquote>
+<h4 id="解法一-dfs">解法一: DFS</h4>
+<blockquote>
+<p>使用深度优先的搜索方法, 在原始的数字串中一次加 '.' 将数字串分割, 直到添加了三个 '.' 将数字串分为四个部分(每个部分都能满足除零外不以零开头, 而且小于 256)</p>
+</blockquote>
+<p><strong>C++代码:</strong> <pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">    这个函数就是找从 index 开始还要添加 n 个 . 的ip 地址</span>
+<span class="hljs-comment">    */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">help</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-keyword">int</span> index, <span class="hljs-keyword">int</span> n, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; &amp;result)</span> </span>&#123;
+        <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        当 n 为 0 时表示不需要添加 . 了，但是需要判断最后一段是不满足条件</span>
+<span class="hljs-comment">        */</span>
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-comment">// 已经没有剩余的数字了, 不满足条件</span>
+            <span class="hljs-keyword">if</span> (index == s.length()) <span class="hljs-keyword">return</span>;
+            <span class="hljs-comment">// 最后一段是0开头, 但是剩余不止一个数字也不满足条件</span>
+            <span class="hljs-keyword">if</span> (s[index] == <span class="hljs-string">'0'</span> &amp;&amp; index != s.length() - <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>;
+            <span class="hljs-comment">// 最后一段满足条件，添加到结果数组里面</span>
+            <span class="hljs-keyword">if</span> (stoi(s.substr(index)) &lt; <span class="hljs-number">256</span>) result.push_back(s);
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-comment">// 当 n 比 0 大，还需要继续在后面的数字串里面添加 .</span>
+        <span class="hljs-comment">// 如果当前数字为 0 , 直接在后面添加 . , 递归调用</span>
+        <span class="hljs-keyword">if</span> (s[index] == <span class="hljs-string">'0'</span>) &#123;
+            s.insert(index + <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">'.'</span>);
+            help(s, index + <span class="hljs-number">2</span>, n - <span class="hljs-number">1</span>, result);
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-comment">// 用一个临时的 string  temp 拷贝当前的 string , 保证回溯的时候能够还原 string</span>
+        <span class="hljs-built_in">string</span> temp;
+        <span class="hljs-keyword">int</span> len = s.length();
+        <span class="hljs-comment">// 当 index 处的数字不是 0 时, 可以在 index 所指的数字后零个一个两个数字后添加 .</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = index; i &lt; len - <span class="hljs-number">1</span> &amp;&amp; (i - index + <span class="hljs-number">1</span>) &lt;= <span class="hljs-number">3</span>; i++) &#123;
+            temp = s;
+            <span class="hljs-comment">// 大于 256 就不满足 ip 地址每一段的条件了</span>
+            <span class="hljs-keyword">if</span> (stoi(temp.substr(index, i-index+<span class="hljs-number">1</span>)) &gt; <span class="hljs-number">256</span>) <span class="hljs-keyword">continue</span>;
+            <span class="hljs-comment">// 满足条件, 添加 .</span>
+            temp.insert(i+<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">'.'</span>);
+            <span class="hljs-comment">// 继续添加后面的 .</span>
+            help(temp, i+<span class="hljs-number">2</span>, n<span class="hljs-number">-1</span>, result);
+        &#125;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; <span class="hljs-title">restoreIpAddresses</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; result;
+        <span class="hljs-keyword">if</span> (s.length() &gt; <span class="hljs-number">12</span> || s.length() &lt; <span class="hljs-number">4</span>) <span class="hljs-keyword">return</span> result;
+        help(s, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>, result);
+        <span class="hljs-keyword">return</span> result;
+    &#125;
+&#125;;</code></pre></p>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
 </search>

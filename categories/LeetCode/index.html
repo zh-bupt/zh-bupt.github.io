@@ -13,11 +13,11 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <meta name="theme-color" content="#2f4154">
+  <meta name="theme-color" content="#222">
   <meta name="description" content="">
   <meta name="author" content="zh">
   <meta name="keywords" content="">
-  <title>标签 - test - zh&#39;s blog</title>
+  <title>分类 - LeetCode - zh&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -42,7 +42,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -130,7 +130,7 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/bg/bg_thoughts.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -160,21 +160,33 @@
                 
 
 <div class="list-group">
-  <p class="h4">共计 2 篇文章</p>
+  <p class="h4">共计 4 篇文章</p>
   <hr>
   
     
       
       <p class="h5">2020</p>
     
-    <a href="/2020/06/06/Test-math/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Test math</span>
+    <a href="/2020/06/06/10-Regular-Expression-Matching/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">LeetCode #10: Regular Expression Matching</span>
       <span style="float: right;">06-06</span>
     </a>
   
     
-    <a href="/2020/06/06/New-post/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">New post</span>
+    <a href="/2020/06/06/42-Trapping-Rain-Water/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">LeetCode #42: Trapping Rain Water</span>
+      <span style="float: right;">06-06</span>
+    </a>
+  
+    
+    <a href="/2020/06/06/33-Search-in-Rotated-Sorted-Array/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">LeetCode #33: Search in Rotated Sorted Array</span>
+      <span style="float: right;">06-06</span>
+    </a>
+  
+    
+    <a href="/2020/06/06/93-Restore-IP-Addresses/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">LeetCode #93: Restore IP Addresses</span>
       <span style="float: right;">06-06</span>
     </a>
   
@@ -407,7 +419,7 @@
       if ('false' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/tags/test/index.html');
+          var target = decodeURI('/categories/LeetCode/index.html');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
@@ -476,7 +488,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签 - test&nbsp;",
+        "分类 - LeetCode&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

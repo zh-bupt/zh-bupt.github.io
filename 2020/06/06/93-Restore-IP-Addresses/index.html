@@ -13,11 +13,11 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <meta name="theme-color" content="#2f4154">
+  <meta name="theme-color" content="#222">
   <meta name="description" content="">
   <meta name="author" content="zh">
   <meta name="keywords" content="">
-  <title>New post - zh&#39;s blog</title>
+  <title>LeetCode #93: Restore IP Addresses - zh&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -141,7 +141,7 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/bg/bg_radio.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      30 字
+      523 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      7
        分钟
     </span>
   
@@ -214,27 +214,82 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="this-is-title">this is title</h2>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Hello, world!\n"</span>;
-&#125;</code></pre>
-<p>这是公式: <span class="math display">\[
-f(x)=3x^2+2x+2
-\]</span></p>
+              <h3 id="leetcode-93-restore-ip-addresses-复原ip地址"><a href="https://leetcode.com/problems/restore-ip-addresses/" target="_blank" rel="noopener">LeetCode #93: Restore IP Addresses (复原IP地址)</a></h3>
+<h4 id="题目描述">题目描述:</h4>
+<blockquote>
+<p>给定一个只包含数字的字符串, 复原它并返回所有可能的 IP 地址格式. 示例: 输入: &quot;25525511135&quot; 输出: [&quot;255.255.11.135&quot;, &quot;255.255.111.35&quot;]</p>
+</blockquote>
+<h4 id="解法一-dfs">解法一: DFS</h4>
+<blockquote>
+<p>使用深度优先的搜索方法, 在原始的数字串中一次加 '.' 将数字串分割, 直到添加了三个 '.' 将数字串分为四个部分(每个部分都能满足除零外不以零开头, 而且小于 256)</p>
+</blockquote>
+<p><strong>C++代码:</strong> <pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">    这个函数就是找从 index 开始还要添加 n 个 . 的ip 地址</span>
+<span class="hljs-comment">    */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">help</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-keyword">int</span> index, <span class="hljs-keyword">int</span> n, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; &amp;result)</span> </span>&#123;
+        <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        当 n 为 0 时表示不需要添加 . 了，但是需要判断最后一段是不满足条件</span>
+<span class="hljs-comment">        */</span>
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-comment">// 已经没有剩余的数字了, 不满足条件</span>
+            <span class="hljs-keyword">if</span> (index == s.length()) <span class="hljs-keyword">return</span>;
+            <span class="hljs-comment">// 最后一段是0开头, 但是剩余不止一个数字也不满足条件</span>
+            <span class="hljs-keyword">if</span> (s[index] == <span class="hljs-string">'0'</span> &amp;&amp; index != s.length() - <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>;
+            <span class="hljs-comment">// 最后一段满足条件，添加到结果数组里面</span>
+            <span class="hljs-keyword">if</span> (stoi(s.substr(index)) &lt; <span class="hljs-number">256</span>) result.push_back(s);
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-comment">// 当 n 比 0 大，还需要继续在后面的数字串里面添加 .</span>
+        <span class="hljs-comment">// 如果当前数字为 0 , 直接在后面添加 . , 递归调用</span>
+        <span class="hljs-keyword">if</span> (s[index] == <span class="hljs-string">'0'</span>) &#123;
+            s.insert(index + <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">'.'</span>);
+            help(s, index + <span class="hljs-number">2</span>, n - <span class="hljs-number">1</span>, result);
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-comment">// 用一个临时的 string  temp 拷贝当前的 string , 保证回溯的时候能够还原 string</span>
+        <span class="hljs-built_in">string</span> temp;
+        <span class="hljs-keyword">int</span> len = s.length();
+        <span class="hljs-comment">// 当 index 处的数字不是 0 时, 可以在 index 所指的数字后零个一个两个数字后添加 .</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = index; i &lt; len - <span class="hljs-number">1</span> &amp;&amp; (i - index + <span class="hljs-number">1</span>) &lt;= <span class="hljs-number">3</span>; i++) &#123;
+            temp = s;
+            <span class="hljs-comment">// 大于 256 就不满足 ip 地址每一段的条件了</span>
+            <span class="hljs-keyword">if</span> (stoi(temp.substr(index, i-index+<span class="hljs-number">1</span>)) &gt; <span class="hljs-number">256</span>) <span class="hljs-keyword">continue</span>;
+            <span class="hljs-comment">// 满足条件, 添加 .</span>
+            temp.insert(i+<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">'.'</span>);
+            <span class="hljs-comment">// 继续添加后面的 .</span>
+            help(temp, i+<span class="hljs-number">2</span>, n<span class="hljs-number">-1</span>, result);
+        &#125;
+    &#125;
+    
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; <span class="hljs-title">restoreIpAddresses</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; result;
+        <span class="hljs-keyword">if</span> (s.length() &gt; <span class="hljs-number">12</span> || s.length() &lt; <span class="hljs-number">4</span>) <span class="hljs-keyword">return</span> result;
+        help(s, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>, result);
+        <span class="hljs-keyword">return</span> result;
+    &#125;
+&#125;;</code></pre></p>
 
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
+                    
+                  </div>
+                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/test/">test</a>
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
                   </div>
                 
@@ -247,21 +302,15 @@ f(x)=3x^2+2x+2
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/06/Test-math/">
+                      <a href="/2020/06/06/33-Search-in-Rotated-Sorted-Array/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Test math</span>
+                        <span class="hidden-mobile">LeetCode #33: Search in Rotated Sorted Array</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </div>
                   <div class="post-next col-6">
                     
-                    
-                      <a href="/2020/06/06/hello-world/">
-                        <span class="hidden-mobile">Hello World</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </div>
                 </div>
@@ -533,7 +582,7 @@ f(x)=3x^2+2x+2
       if ('true' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/2020/06/06/New-post/');
+          var target = decodeURI('/2020/06/06/93-Restore-IP-Addresses/');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
@@ -627,7 +676,7 @@ f(x)=3x^2+2x+2
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "New post&nbsp;",
+        "LeetCode #93: Restore IP Addresses&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

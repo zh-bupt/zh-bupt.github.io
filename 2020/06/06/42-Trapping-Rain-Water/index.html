@@ -13,11 +13,11 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <meta name="theme-color" content="#2f4154">
+  <meta name="theme-color" content="#222">
   <meta name="description" content="">
   <meta name="author" content="zh">
   <meta name="keywords" content="">
-  <title>Hello World - zh&#39;s blog</title>
+  <title>LeetCode #42: Trapping Rain Water - zh&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -141,7 +141,7 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/bg/bg_radio.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -154,7 +154,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-06 12:34">
+    <time datetime="2020-06-06 13:58">
       2020年6月6日 下午
     </time>
   </div>
@@ -165,7 +165,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      74 字
+      534 字
     </span>
   
 
@@ -175,7 +175,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      6
        分钟
     </span>
   
@@ -214,26 +214,60 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<pre><code class="hljs bash">$ hexo new <span class="hljs-string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<pre><code class="hljs bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<pre><code class="hljs bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<pre><code class="hljs bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+              <h3 id="leetcode-42-trapping-rain-water"><a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="noopener">LeetCode #42: Trapping Rain Water</a></h3>
+<h4 id="题目描述">题目描述:</h4>
+<blockquote>
+<p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。 <img src="https://i.loli.net/2020/05/12/fmTMv9sN43Ww1kj.png" srcset="/img/loading.gif" alt="image" /> 上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 示例: 输入: [0,1,0,2,1,0,1,3,2,1,2,1] 输出: 6 #### 解法一: 可以观察到要形成一个水洼需要两边的方块比中间的高，而且一个形状不规则的水洼可以被分解成几个形状规则的水洼，如图： <img src="https://i.loli.net/2020/05/12/ouX3vC1zsipYPjT.jpg" srcset="/img/loading.gif" alt="不规则的水洼的分解" /> 因此我们在遍历数组时维护一个栈。如果当前的条形块小于或等于栈顶的条形块，我们将条形块的索引和高度入栈，这样栈里面存放的就是一些下标递增但是高度非递增的块。如果我们发现一个条形块长于栈顶，我们可以确定栈顶的条形块被当前条形块和栈的前一个条形块形成一个水洼（如果站定几个条形块高度一样则可认为形成了一个高度为零的水洼），而且我们可以根据高度和宽度算出水洼的面积。这样只需要一次遍历就可以计算出结果，代码如下:</p>
+</blockquote>
+<p><strong>C++代码:</strong> <pre><code class="hljs c++"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> &#123;</span>
+    <span class="hljs-keyword">int</span> h, x;
+    node(<span class="hljs-keyword">int</span> hh, <span class="hljs-keyword">int</span> xx):h(hh),x(xx) &#123;&#125;
+&#125; node;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; <span class="hljs-built_in">height</span>)</span> </span>&#123;
+        <span class="hljs-built_in">stack</span>&lt;node&gt; s;
+        <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">height</span>.<span class="hljs-built_in">size</span>(); ++i) &#123;
+            <span class="hljs-keyword">while</span>(!s.empty() &amp;&amp; s.top().h &lt; <span class="hljs-built_in">height</span>[i]) &#123;
+                <span class="hljs-comment">// 记录底部的高度, 因为有可能是一个不规则的水洼</span>
+                <span class="hljs-keyword">int</span> t = s.top().h;
+                <span class="hljs-comment">// 将底部从堆栈中弹出</span>
+                s.pop();
+                <span class="hljs-comment">// 保证水洼的左边有方块</span>
+                <span class="hljs-keyword">if</span> (!s.empty())&#123;
+                     <span class="hljs-comment">// 水洼面积等于宽度乘上两边方块高度的最小值(减去底部高度)</span>
+                    result += (i - s.top().x - <span class="hljs-number">1</span>) * (<span class="hljs-built_in">min</span>(<span class="hljs-built_in">height</span>[i], s.top().h) - t);
+                &#125;
+            &#125;
+            s.push(node(<span class="hljs-built_in">height</span>[i], i));
+        &#125;
+        <span class="hljs-keyword">return</span> result;
+    &#125;
+&#125;;</code></pre></p>
 
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                    
+                  </div>
                 
               </div>
               
@@ -244,15 +278,21 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/06/New-post/">
+                      <a href="/2020/06/06/10-Regular-Expression-Matching/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">New post</span>
+                        <span class="hidden-mobile">LeetCode #10: Regular Expression Matching</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </div>
                   <div class="post-next col-6">
                     
+                    
+                      <a href="/2020/06/06/33-Search-in-Rotated-Sorted-Array/">
+                        <span class="hidden-mobile">LeetCode #33: Search in Rotated Sorted Array</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </div>
                 </div>
@@ -524,7 +564,7 @@
       if ('true' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/2020/06/06/hello-world/');
+          var target = decodeURI('/2020/06/06/42-Trapping-Rain-Water/');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
@@ -618,7 +658,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Hello World&nbsp;",
+        "LeetCode #42: Trapping Rain Water&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -679,6 +719,45 @@
 
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
 
 
 
